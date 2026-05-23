@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cass Biyang — Operations Portfolio</title>
+<style>
+  :root {
+    --bg: #faf9f6;
+    --bg-card: #ffffff;
+    --bg-secondary: #f0efe9;
+    --text-primary: #1a1a18;
+    --text-secondary: #4a4a47;
+    --text-tertiary: #888780;
+    --border-light: #e2e1db;
+    --border-mid: #c8c7c0;
+    --accent: #0f6e56;
+    --accent-hover: #085041;
+    --accent-light: #e1f5ee;
+    --accent-text: #085041;
+    --tag-bg: #f0efe9;
+    --tag-text: #5f5e5a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141412;
+      --bg-card: #1c1c1a;
+      --bg-secondary: #252523;
+      --text-primary: #f0efe9;
+      --text-secondary: #b4b2a9;
+      --text-tertiary: #6a6a65;
+      --border-light: #2e2e2b;
+      --border-mid: #3a3a37;
+      --accent: #5dcaa5;
+      --accent-hover: #9fe1cb;
+      --accent-light: #04342c;
+      --accent-text: #9fe1cb;
+      --tag-bg: #252523;
+      --tag-text: #888780;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* Nav */
+  nav {
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 2.5rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-name {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 4.5rem 2.5rem 3.5rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero-name {
+    font-size: 42px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-bio {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.06em;
+  }
+
+  .hero-meta-item a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .hero-meta-item a:hover { color: var(--accent-hover); }
+
+  /* Stats strip */
+  .stats-strip {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .stat-cell {
+    background: var(--bg);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-desc {
+    font-family: 'Courier New', monospace;
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  /* Main content */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 5rem;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-title {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  /* Project card */
+  .project-group {
+    margin-bottom: 3.5rem;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1px;
+    transition: border-color 0.15s;
+  }
+
+  .project-card:hover { border-color: var(--border-mid); }
+
+  .project-card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .project-org {
+    font-family: 'Courier New', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .project-title {
+    font-size: 19px;
+    font-weight: normal;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+
+  .project-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 580px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border: 1px solid var(--border-light);
+  }
+
+  /* Artifact list */
+  .artifact-list {
+    list-style: none;
+  }
+
+  .artifact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 1.75rem;
+    border-bottom: 1px solid var(--border-light);
+    transition: background 0.12s;
+    gap: 1rem;
+  }
+
+  .artifact-item:last-child { border-bottom: none; }
+  .artifact-item:hover { background: var(--bg-secondary); }
+
+  .artifact-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .artifact-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .artifact-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--accent-text);
+    stroke-width: 1.75;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .artifact-name {
+    font-size: 13.5px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .artifact-type {
+    font-family: 'Courier New', monospace;
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .artifact-link {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    padding: 5px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    transition: border-color 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .artifact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent-hover);
+  }
+
+  .artifact-link.coming-soon {
+    color: var(--text-tertiary);
+    pointer-events: none;
+    cursor: default;
+  }
+
+  /* Competencies */
+  .competency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 3.5rem;
+  }
+
+  .comp-card {
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+  }
+
+  .comp-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+  }
+
+  .comp-desc {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+  }
+
+  /* Contact strip */
+  .contact-strip {
+    border-top: 1px solid var(--border-light);
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .contact-label {
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1px;
+    transition: border-color 0.15s;
+  }
+
+  .contact-link:hover { border-color: var(--accent); }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border-light);
+    padding: 1.5rem 2.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 10.5px;
+    color: var(--text-tertiary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hero { padding: 2.5rem 1.25rem 2rem; }
+    .hero-name { font-size: 30px; }
+    .stats-strip { grid-template-columns: 1fr 1fr; padding: 0; }
+    .main { padding: 2rem 1.25rem 3rem; }
+    .competency-grid { grid-template-columns: 1fr; }
+    .contact-strip { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; gap: 4px; padding: 1rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-name">CASS BIYANG</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#competencies">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://linkedin.com/in/cass-biyang/" target="_blank">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Operations &amp; Implementation Portfolio</div>
+  <h1 class="hero-name">Cass Biyang</h1>
+  <p class="hero-bio">I build and scale operations that drive measurable commercial outcomes. Ten years across SaaS, enterprise service delivery, and cross-functional operations — designing systems that perform at scale, leading the teams that run them, and managing the relationships that generate revenue.</p>
+  <div class="hero-meta">
+    <span class="hero-meta-item">📍 Toronto, Canada</span>
+    <span class="hero-meta-item"><a href="mailto:cassbiyang@gmail.com">cassbiyang@gmail.com</a></span>
+    <span class="hero-meta-item"><a href="https://linkedin.com/in/cass-biyang/" target="_blank">linkedin.com/in/cass-biyang</a></span>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stat-cell">
+    <div class="stat-num">10+</div>
+    <div class="stat-desc">Years in operations &amp; delivery</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">98.5%</div>
+    <div class="stat-desc">Attainment on delivery timelines &amp; commercial outcomes</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">62%</div>
+    <div class="stat-desc">Customer self-serve adoption — Growmotely KRC</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">82%</div>
+    <div class="stat-desc">Reduction in post-migration escalations — IPXEG</div>
+  </div>
+</div>
+
+<main class="main" id="work">
+
+  <div class="project-group">
+    <div class="section-header">
+      <span class="section-title">Case study — Growmotely Inc.</span>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <div class="project-org">Growmotely Inc. · COO · 2021–2024</div>
+        <h2 class="project-title">Knowledge Resource Center — Customer Documentation System</h2>
+        <p class="project-desc">Designed and built a role-aware, searchable knowledge system from the ground up — architecting nine content sections across five user personas, instrumenting search analytics, automating gap detection, and establishing a governance model that scaled without proportional headcount growth. Reduced CSM onboarding time by 58% and deflected 28% of support volume within six months of launch.</p>
+        <div class="project-tags">
+          <span class="tag">Knowledge Management</span>
+          <span class="tag">Customer Enablement</span>
+          <span class="tag">Content Architecture</span>
+          <span class="tag">HubSpot Service Hub</span>
+          <span class="tag">Process Design</span>
+          <span class="tag">Analytics</span>
+        </div>
+      </div>
+      <ul class="artifact-list">
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">Project Charter</div>
+              <div class="artifact-type">Scope · Objectives · Stakeholders · Risks</div>
+            </div>
+          </div>
+          <a href="projects/krc/charter.html" class="artifact-link">View →</a>
+        </li>
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/><line x1="3.6" y1="9" x2="20.4" y2="9"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">Phase Gate Review</div>
+              <div class="artifact-type">Entry Criteria · Sign-off Owners · Exit Conditions</div>
+            </div>
+          </div>
+          <a href="projects/krc/phase-gate.html" class="artifact-link coming-soon">Coming soon</a>
+        </li>
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">Project Dashboard</div>
+              <div class="artifact-type">Workstream Status · Ownership · Blockers</div>
+            </div>
+          </div>
+          <a href="projects/krc/dashboard.html" class="artifact-link coming-soon">Coming soon</a>
+        </li>
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">RACI Matrix</div>
+              <div class="artifact-type">Ownership · Accountability · Consultation</div>
+            </div>
+          </div>
+          <a href="projects/krc/raci.html" class="artifact-link coming-soon">Coming soon</a>
+        </li>
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">Risk Register</div>
+              <div class="artifact-type">Risks · Mitigations · Outcomes</div>
+            </div>
+          </div>
+          <a href="projects/krc/risk-register.html" class="artifact-link coming-soon">Coming soon</a>
+        </li>
+        <li class="artifact-item">
+          <div class="artifact-left">
+            <div class="artifact-icon">
+              <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div>
+              <div class="artifact-name">KPI &amp; Metrics Tracker</div>
+              <div class="artifact-type">Targets · Actuals · Performance Trends</div>
+            </div>
+          </div>
+          <a href="projects/krc/kpi-tracker.html" class="artifact-link coming-soon">Coming soon</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="project-group" id="competencies">
+    <div class="section-header">
+      <span class="section-title">Core competencies</span>
+    </div>
+    <div class="competency-grid">
+      <div class="comp-card">
+        <div class="comp-title">Portfolio &amp; Program Management</div>
+        <div class="comp-desc">Multi-workstream delivery at 98.5% attainment across Tier-1 energy clients and SaaS environments</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Systems Integration &amp; Automation</div>
+        <div class="comp-desc">HubSpot, Salesforce, Zapier, Shopify, SPS Commerce EDI — accelerating onboarding and scaling support capacity</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Knowledge Systems &amp; Enablement</div>
+        <div class="comp-desc">Role-aware documentation at 62% self-serve adoption; 28% support deflection at Growmotely</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Customer Success Operations</div>
+        <div class="comp-desc">Onboarding design, CS team leadership, and service layer ownership from early-stage through acquisition</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Enterprise Client Management</div>
+        <div class="comp-desc">Senior-level stakeholder relationships, QBRs, and contract renewals across a ~$1M enterprise portfolio</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Process Design &amp; Governance</div>
+        <div class="comp-desc">Building systems durable enough that incoming functional leaders inherit and extend rather than rebuild</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-strip" id="contact">
+    <div class="contact-label">Open to Operations, Implementation, and Customer Success Operations leadership roles.</div>
+    <div class="contact-links">
+      <a href="mailto:cassbiyang@gmail.com" class="contact-link">cassbiyang@gmail.com</a>
+      <a href="tel:+14372245125" class="contact-link">+1 437 224 5125</a>
+      <a href="https://linkedin.com/in/cass-biyang/" target="_blank" class="contact-link">LinkedIn ↗</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>Cass Biyang · Operations &amp; Implementation Portfolio</span>
+  <span>Toronto, Canada</span>
+</footer>
+
+</body>
+</html>
